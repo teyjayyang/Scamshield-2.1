@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: scamshield-x-ml-api
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.11
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: API_KEY
+        generateValue: true
+      - key: ALLOW_ORIGINS
+        value: https://incomparable-kangaroo-0209c3.netlify.app,https://6af693f1acd5d9a6525b7689--incomparable-kangaroo-0209c3.netlify.app
